@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №7</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 { color: #333; margin-top: 0; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #0056b3; }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Калькулятор</h2>
+        <p>Додавання чисел (A + B)</p>
+
+        <form>
+            <input type="number" id="numA" placeholder="Введіть число А">
+            <input type="number" id="numB" placeholder="Введіть число Б">
+            <button type="button" onclick="sum()">Додати</button>
+        </form>
+
+        <div id="result">Результат: </div>
+    </div>
+
+    <script>
+        function sum() {
+            // Отримуємо значення з полів
+            const a = parseFloat(document.getElementById('numA').value);
+            const b = parseFloat(document.getElementById('numB').value);
+
+            const resultBlock = document.getElementById('result');
+
+
+            const sum = a + b;
+            resultBlock.innerText = "Результат: " + sum;
+            resultBlock.style.color = "#333";
+            
+        }
+    </script>
+
+</body>
+</html>
