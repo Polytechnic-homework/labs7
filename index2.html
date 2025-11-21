@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота №7</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff5e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            color: #d35400;
+            margin-top: 0;
+        }
+        .question-block {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        select, input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #d35400;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #a04000;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fae5d3;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Гра Вікторина</h2>
+        <p style="text-align: center; color: #666;">Дайте відповідь на запитання:</p>
+
+        <form id="quizForm">
+            
+            <!-- 1. Radio -->
+            <div class="question-block">
+                <span class="question-title">1. Яка планета третя від Сонця?</span>
+                <label><input type="radio" name="q1" value="mars"> Марс</label>
+                <label><input type="radio" name="q1" value="earth"> Земля</label>
+                <label><input type="radio" name="q1" value="venus"> Венера</label>
+            </div>
+
+            <!-- 2. Checkbox -->
+            <div class="question-block">
+                <span class="question-title">2. Які кольори є на прапорі України? (Оберіть два)</span>
+                <label><input type="checkbox" name="q2" value="blue"> Синій</label>
+                <label><input type="checkbox" name="q2" value="red"> Червоний</label>
+                <label><input type="checkbox" name="q2" value="yellow"> Жовтий</label>
+            </div>
+
+            <!-- 3. Select -->
+            <div class="question-block">
+                <label class="question-title" for="q3">3. Столиця України?</label>
+                <select id="q3">
+                    <option value="lviv">Львів</option>
+                    <option value="kyiv">Київ</option>
+                    <option value="kharkiv">Харків</option>
+                </select>
+            </div>
+
+            <!-- 4. Range -->
+            <div class="question-block" style="border: none;">
+                <label class="question-title" for="confidence">4. Перетягніть до кінця</label>
+                <input type="range" id="confidence" min="0" max="100" value="50" oninput="document.getElementById('rangeVal').innerText = this.value + '%'">
+                <div style="text-align: right; font-size: 0.9em; color: #555;"><span id="rangeVal">50%</span></div>
+            </div>
+
+            <button type="button" onclick="checkAnswers()">Перевірити результат</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let score = 0;
+            
+            // --- Перевірка питання 1 (Radio) ---
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            if (q1Answer && q1Answer.value === 'earth') {
+                score++;
+            }
+
+            // --- Перевірка питання 2 (Checkbox) ---
+            const blue = document.querySelector('input[value="blue"]');
+            const red = document.querySelector('input[value="red"]');
+            const yellow = document.querySelector('input[value="yellow"]');            
+            if (blue.checked && yellow.checked && !red.checked) {
+                score++;
+            }
+
+            // --- Перевірка питання 3 (Select) ---
+            const q3Select = document.getElementById('q3');
+            if (q3Select.value === 'kyiv') {
+                score++;
+            }
+
+            // --- Виведення результату ---
+            const resultDiv = document.getElementById('result');
+            const confidence = document.getElementById('confidence').value;
+            
+            resultDiv.style.display = 'block';
+            
+            let message = `Ви набрали ${score} з 3 балів.<br>`;
+
+            if (score === 3) {
+                message += "🏆 Чудовий результат!";
+                resultDiv.style.backgroundColor = "#d4edda";
+                resultDiv.style.color = "#155724";
+            } else {
+                message += "Спробуйте ще раз!";
+                resultDiv.style.backgroundColor = "#f8d7da";
+                resultDiv.style.color = "#721c24";
+            }
+
+            resultDiv.innerHTML = message;
+        }
+    </script>
+
+</body>
+</html>
